@@ -1,1 +1,26 @@
-!function(){const t=".icon-menu__icon",c=".icon-menu__body",s=document.querySelector(t),i=document.querySelector(c),l="."+s.parentElement.getAttribute("class").split(" ").join("."),o=document.querySelector("body");s&&(s.addEventListener("click",()=>{s.classList.toggle((t+"_active").slice(1)),i.classList.toggle((c+"_active").slice(1))}),document.addEventListener("click",e=>{e.target.closest(l)||(s.classList.remove((t+"_active").slice(1)),i.classList.remove((c+"_active").slice(1))),s.classList.contains((t+"_active").slice(1))?o.setAttribute("style","overflow: hidden;"):o.removeAttribute("style")}))}();
+(function () {
+	const burgerSelector = '.icon-menu__icon';
+	const burgerMenuSelector = '.icon-menu__body'
+	const burger = document.querySelector(`${burgerSelector}`);
+	const burgerMenu = document.querySelector(`${burgerMenuSelector}`);
+	const burgerParentSelector = '.' + burger.parentElement.getAttribute('class').split(' ').join('.');
+	const body = document.querySelector('body');
+	function toggleScroll() {
+		if (burger.classList.contains(`${burgerSelector}_active`.slice(1))) {
+			body.setAttribute('style', 'overflow: hidden;')
+		} else body.removeAttribute('style');
+	}
+	if (burger) {
+		burger.addEventListener('click', () => {
+			burger.classList.toggle(`${burgerSelector}_active`.slice(1));
+			burgerMenu.classList.toggle(`${burgerMenuSelector}_active`.slice(1));
+		})
+		document.addEventListener('click', (e) => {
+			if (!(e.target.closest(burgerParentSelector))) {
+				burger.classList.remove(`${burgerSelector}_active`.slice(1));
+				burgerMenu.classList.remove(`${burgerMenuSelector}_active`.slice(1));
+			}
+			toggleScroll();
+		})
+	}
+})()

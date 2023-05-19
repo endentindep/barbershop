@@ -1,1 +1,93 @@
-!function(){var e,t,n=document.querySelectorAll("[data-da]");document.documentElement.clientWidth;let i={};for(const l of n){let e=null,t,n;var o=l.getAttribute("data-da")?l.getAttribute("data-da").split(" "):null;if(o){for(const s of o)(s.includes("max")||s.includes("min"))&&(isFinite(s.replace("min",""))||isFinite(s.replace("max","")))||isFinite(s)?n=s.includes("max")||isFinite(s)?window.matchMedia(`(max-width:${s.replace("max","")}px)`):window.matchMedia(`(min-width:${s.replace("min","")}px)`):s.startsWith(".")?t=s:s.includes("#")&&(e=s.replaceAll("#",""));i.hasOwnProperty(l.parentElement.classList)?i[l.parentElement.classList].push({elem:l,to:document.querySelector(t),width:n,parent:l.parentElement,pos:e,sib:l.nextSibling}):i[l.parentElement.classList]=[{elem:l,to:document.querySelector(t),width:n,parent:l.parentElement,pos:e,sib:l.nextSibling}]}}for(e in i)1!==i[e].length&&i[e].sort((e,t)=>e.pos-t.pos);for(const r in i)for(const a of i[r])a.width.matches&&(a.pos&&a.pos<=a.to.childElementCount-1?a.pos<=0?a.to.prepend(a.elem):a.pos<=a.to.childElementCount-1&&(t=a.to.children[a.pos]).parentElement.insertBefore(a.elem,t):a.to.append(a.elem)),a.width.onchange=()=>{var e;a.width.matches?a.pos&&a.pos<=a.to.childElementCount-1?a.pos<=0?a.to.prepend(a.elem):a.pos<=a.to.childElementCount-1&&(e=a.to.children[a.pos]).parentElement.insertBefore(a.elem,e):a.to.append(a.elem):a.sib?a.parent.insertBefore(a.elem,function e(t,n){if(t.parent.contains(t.sib))return t.sib;for(const i of n)if(t.sib===i.elem)return e(i,n)}(a,i[r])):a.parent.append(a.elem)}}();
+(function () {
+	const elems = document.querySelectorAll('[data-da]');
+	let width = document.documentElement.clientWidth;
+	let list = {};
+	for (const i of elems) {
+		let pos = null;
+		let to;
+		let dispWidth;
+		const data = i.getAttribute('data-da') ? i.getAttribute('data-da').split(' ') : null
+		if (data) {
+			for (const t of data) {
+				if (((t.includes('max') || t.includes('min'))) && (isFinite(t.replace('min', '')) || isFinite(t.replace('max', ''))) ||
+					isFinite(t)
+				) {
+					if (t.includes('max') || isFinite(t)) {
+						dispWidth = window.matchMedia(`(max-width:${t.replace('max', '')}px)`)
+					} else dispWidth = window.matchMedia(`(min-width:${t.replace('min', '')}px)`)
+				} else if (t.startsWith('.')) {
+					to = t;
+				} else if (t.includes('#')) {
+					pos = t.replaceAll('#', '');
+				}
+			}
+			if (list.hasOwnProperty(i.parentElement.classList)) {
+				list[i.parentElement.classList].push({
+					'elem': i,
+					'to': document.querySelector(to),
+					'width': dispWidth,
+					'parent': i.parentElement,
+					'pos': pos,
+					'sib': i.nextSibling
+				});
+			} else {
+				list[i.parentElement.classList] = [{
+					'elem': i,
+					'to': document.querySelector(to),
+					'width': dispWidth,
+					'parent': i.parentElement,
+					'pos': pos,
+					'sib': i.nextSibling
+				}];
+			}
+		}
+	}
+	for (let i in list) {
+		if (list[i].length !== 1) {
+			list[i].sort((a, b) => a.pos - b.pos);
+		}
+	}
+	function find(elem, arr) {
+		if (elem.parent.contains(elem.sib)) {
+			return elem.sib;
+		} else {
+			for (const i of arr) {
+				if (elem.sib === i.elem) {
+					return find(i, arr);
+				}
+			}
+		}
+	}
+	for (const arr in list) {
+		for (const i of list[arr]) {
+			if (i.width.matches) {
+				if (i.pos && i.pos <= i.to.childElementCount - 1) {
+					if (i.pos <= 0) {
+						i.to.prepend(i.elem);
+					} else if (i.pos <= i.to.childElementCount - 1) {
+						const ref = i.to.children[i.pos];
+						ref.parentElement.insertBefore(i.elem, ref);
+					}
+				} else i.to.append(i.elem);
+			}
+			i.width.onchange = () => {
+				if (i.width.matches) {
+					if (i.pos && i.pos <= i.to.childElementCount - 1) {
+						if (i.pos <= 0) {
+							i.to.prepend(i.elem);
+						} else if (i.pos <= i.to.childElementCount - 1) {
+							const ref = i.to.children[i.pos];
+							ref.parentElement.insertBefore(i.elem, ref);
+						}
+					} else i.to.append(i.elem);
+				} else {
+					if (i.sib) {
+						i.parent.insertBefore(i.elem, find(i, list[arr]));
+					} else {
+						i.parent.append(i.elem)
+					}
+				}
+			}
+		}
+	}
+})()
