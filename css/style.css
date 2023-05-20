@@ -1,17 +1,14 @@
 body {
   font-family: "Gilroy";
   font-size: 1rem;
-  overflow-x: hidden;
 }
 
 .container {
   max-width: 1480px;
   padding: 0 20px;
   margin: 0 auto;
-}
-
-.swiper {
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 @font-face {
