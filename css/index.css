@@ -105,6 +105,18 @@
   flex-direction: column;
   position: relative;
   z-index: 2;
+  overflow-x: hidden;
+  overflow-y: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.first-page::-webkit-scrollbar {
+  display: none;
+}
+.first-page::-webkit-scrollbar {
+  display: none;
 }
 @media (min-width: 48.03125rem) {
   .first-page {
@@ -670,8 +682,15 @@
 .services {
   color: #EDE8D7;
   background-color: #121212;
+  overflow-x: hidden;
+  overflow-y: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
+}
+.services::-webkit-scrollbar {
+  display: none;
 }
 @media (min-width: 320px) {
   .services {
@@ -985,8 +1004,15 @@
 .slider {
   background-color: #121212;
   color: #EDE8D7;
+  overflow-x: hidden;
+  overflow-y: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   padding-bottom: 1.25rem;
   padding-top: 1.25rem;
+}
+.slider::-webkit-scrollbar {
+  display: none;
 }
 @media (min-width: 320px) {
   .slider {
@@ -1153,8 +1179,15 @@
 .feedbacks {
   background: url("../img/feedback-bg.png") center 0/cover #121212;
   color: #EDE8D7;
+  overflow-x: hidden;
+  overflow-y: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   padding-top: 1.25rem;
   padding-bottom: 1.25rem;
+}
+.feedbacks::-webkit-scrollbar {
+  display: none;
 }
 @media (min-width: 320px) {
   .feedbacks {
@@ -1610,8 +1643,15 @@
 .buttons {
   background-color: #121212;
   border-bottom: 3px solid rgba(237, 232, 215, 0.13);
+  overflow-x: hidden;
+  overflow-y: visible;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   padding-top: 1.875rem;
   padding-bottom: 1.875rem;
+}
+.buttons::-webkit-scrollbar {
+  display: none;
 }
 @media (min-width: 320px) {
   .buttons {
